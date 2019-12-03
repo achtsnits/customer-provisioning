@@ -1,0 +1,21 @@
+{
+  "name": "customer-provisioning",
+  "version": "1.0.0",
+  "description": "run necessary steps to provision new customer",
+  "main": "brigade.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/achtsnits/customer-provisioning.git"
+  },
+  "author": "Stefan Achtsnit",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brigadecore/brigade-tutorial-config/issues"
+  },
+  "homepage": "https://github.com/brigadecore/brigade-tutorial-config#readme",
+  "dependencies": {
+    "@brigadecore/brigadier": "^0.4.0",
+    "@kubernetes/client-node": "^0.8.2"
+  }
+}
