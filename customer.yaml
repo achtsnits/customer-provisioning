@@ -1,7 +1,7 @@
 apiVersion: hub.eox.at/v1alpha1
 kind: Customer
 metadata:
-  name: test1234
+  name: test12345
   namespace: dev
 spec:
-  k8s-namespace: test1234-ns
+  k8s-namespace: test12345-ns

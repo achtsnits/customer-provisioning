@@ -12,6 +12,7 @@ const createNamespace = async namespaceName => {
   );
 
   if (existingNamespace.body.items.length) {
+    throw Error("Environment name must be specified");
     console.log(`namespace "${namespaceName}" already exists`);
     return;
   }
@@ -23,18 +24,29 @@ const createNamespace = async namespaceName => {
   await k8sCoreClient.createNamespace(namespace);
 };
 
-events.on("resource_added", onResourceAdded);
+events.on("resource_added", resource => {
+  try {
+    console.log("namespace: " + resource.spec.k8s-namespace);
+    const customer = JSON.parse(payload);
+    const namespace = customer.spec.k8s-namespace
+
+    if (!namespace) {
+      throw Error("missing namespace");
+    }
+
+    createNamespace(namespace).catch(error => {
+      logError(error);
+    });
+  } catch (error) {
+    logError(error);
+  }
+});
+
 events.on("resource_modified", log);
 events.on("resource_deleted", log);
 events.on("resource_error", log);
 
-function onResourceAdded(e, p) {
-    let customer = JSON.parse(e.payload);
-    console.log("start provisioning new namespace: " + customer.spec.k8s-namespace);
-    await createNamespace(customer.spec.k8s-namespace);
-}
-
-function log(e, p) {
-    let obj = JSON.parse(e.payload);
-    console.log(obj);
+function log(resource) {
+  const customer = JSON.parse(resource);
+  console.log(customer);
 }
