@@ -23,7 +23,7 @@ const createNamespace = async namespaceName => {
   await k8sCoreClient.createNamespace(namespace);
 };
 
-events.on("resource_added", onAdded);
+events.on("resource_added", onResourceAdded);
 events.on("resource_modified", log);
 events.on("resource_deleted", log);
 events.on("resource_error", log);
