@@ -1,12 +1,12 @@
 const { events } = require("brigadier");
 const kubernetes = require("@kubernetes/client-node");
 
-const kubeConfig = new kubernetes.KubeConfig();
-kubeConfig.loadFromDefault();
-
-const k8sCoreClient = kubeConfig.makeApiClient(kubernetes.Core_v1Api);
-
 const createNamespace = async namespaceName => {
+  const kubeConfig = new kubernetes.KubeConfig();
+  kubeConfig.loadFromDefault();
+
+  const k8sCoreClient = kubeConfig.makeApiClient(kubernetes.Core_v1Api);
+
   const existingNamespace = await k8sCoreClient.listNamespace(
     true, "", `metadata.name=${namespaceName}`,
   );
